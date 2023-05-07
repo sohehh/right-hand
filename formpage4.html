@@ -16,6 +16,7 @@
                     new daum.Postcode({
                         oncomplete: function(data) { //선택시 입력값 세팅
                             document.getElementById("address_kakao1").value = data.address; // 주소 넣기
+                            activeEvent();
                             document.querySelector("input[name=address_detail1]").focus(); //상세입력 포커싱
                         }
                     }).open();
@@ -39,23 +40,25 @@
         });
 
 
-        // const nameForm = document.querySelector('#name');
-        // const relForm = document.querySelector('#relation');
-        // const adrForm = document.querySelector('#address_kakao1');
-        // const btnButton = document.querySelector('.btn-bottom');
+        
 
-        // idForm.addEventListener('keyup', activeEvent);
-        // relForm.addEventListener('keyup', activeEvent);
-        // adrForm.addEventListener('keyup', activeEvent);
-        // loginButton.addEventListener('click', errorEvent);
+    </script>
+    <script>
 
-        // function activeEvent() {
-        // switch(!(idForm.value && relForm.value && adrForm)){
-        //     case true : loginButton.disabled = true; break;
-        //     case false : loginButton.disabled = false; break
-        // }
-        // }
+        $(function(){
+            // var oldVal;
+        
 
+        // $("#relation").on("propertychange change keyup paste input", function() {
+        //     var currentVal = $(this).val();
+        //     if(currentVal == oldVal) {
+        //         return;
+        //     }
+        
+        //     oldVal = currentVal;
+        //     alert("changed!");
+        // });
+        });
     </script>
 </head>
 <body class="formP4">
@@ -114,8 +117,8 @@
                     <label for="check_btn"><span>개인 정보 제공 동의</span></label>
                 </div>
                 <div class="btn-bottom-wrap">
-                    <button class="btn-bottom">
-                        <a href="#">다음</a>
+                    <button class="btn-bottom" disabled="true"  type="button">
+                        다음
                     </button>
                 </div> 
             </div>
@@ -207,19 +210,29 @@
             $("body").addClass('notScroll');
         });
     
-        /*팝업 하단 버튼 클릭시 관계 목록에서 선택된 값을 관계인풋에 할당하는 코드*/
-        $('.pu-btn-bottom').click(function(){
-            var radiovalue = $('input[name=rel]:checked').val();
-            $('#relation').val(radiovalue);
-            popclose();
-        });
+        
 
         /*하단 다음 버튼 클릭시 화면 띄우는 코드*/
-        $('.btn-bottom a').click(function(){
+        $('.btn-bottom').click(function(){
             $('.inputCheckWrap').css('display', 'block');
             $('.formP4>.step-wizard,.formP4>.title, .formP4>.content').css('display','none');
             // $('.text_idCard').text("신분증 촬영 완료");
         });
+
+
+        /*팝업 하단 버튼 클릭시 관계 목록에서 선택된 값을 관계인풋에 할당하는 코드*/
+        $('.pu-btn-bottom').click(function(){
+            var radiovalue = $('input[name=rel]:checked').val();
+            $('#relation').val(radiovalue);
+            $('.text_rel').text($('#relation').val());
+            //인위적으로 val로 할당을 해줬기에 keyup먹히지 않음
+
+            relForm= true;
+            activeEvent();
+            popclose();
+        });
+
+        
 
         /*팝업창 사라지는 코드 | 함수 선언*/
         function popclose(){
@@ -260,6 +273,48 @@
         //         $('.btn-bottom').css( {backgroundColor:'#2CB7A4', color:'white' } ); 
         //     }
         // });
+
+
+        //test
+        let nameForm = document.getElementById('name');
+        let relForm;
+        let adrForm = document.getElementById('address_kakao1');
+        let adrSubForm = document.getElementById('address_kakao1Sub');
+        var btnButton = document.getElementsByClassName('btn-bottom')[0];
+        //클래스 선택자는 뒤에 []붙여줘야 함
+
+        nameForm.addEventListener('keyup',activeEvent);
+        // relForm.addEventListener('input',activeEvent);
+        // nameForm.addEventListener('keyup', test);
+        // relForm.addEventListener('keyup', test);
+        adrSubForm.addEventListener('keyup', activeEvent);
+        // btnButton.addEventListener('click', errorEvent);
+
+        function test(){
+            console.log(nameForm.value);
+            console.log(relForm.value);
+        }
+        function activeEvent() {
+        switch(!((nameForm.value && relForm) && (adrForm.value && adrSubForm.value))){
+            case true : 
+            btnButton.disabled = true;
+            console.log("No"); 
+            btnButton.style.color='#B7B7B7';
+            btnButton.style.backgroundColor='#EFEFEF';
+            break;
+            //둘중 하나라도 입력값이 없을 때
+            case false : 
+            btnButton.disabled = false;
+            btnButton.removeAttribute( 'disabled' );
+            console.log("Yes");
+            btnButton.style.color='white';
+            btnButton.style.backgroundColor='#2CB7A4';
+            break;
+            //두개 모두 입력값이 있을 때
+        }
+        }
+
+        
 
     </script>
 </body>
