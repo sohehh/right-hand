@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/jquery-1.11.1.min.js"></script>
+    <script>
+        /*인풋값 모두 입력시 활성회 되는 코드*/
+        $(function(){
+            $("#input_text").on('input',function(){
+                if($('#input_text').val()==""){
+                    $('.btn-bottom').attr('disabled',true);
+                    $('.btn-bottom').css('background-color','#000');
+                }else{
+                    $('.btn-bottom').attr('disabled',false);
+                }
+            });
+        });
+    </script>
+    
+</head>
+<body class="formP3">
+    <div class="step-wizard">
+        <ul class="step-wizard-list">
+            <li class="step-wizard-item">
+                <span class="progress-count">1</span>
+                <span class="progress-label"> 신청서<br>선택</span>
+            </li>
+            <li class="step-wizard-item current-item">
+                <span class="progress-count">2</span>
+                <span class="progress-label">수급자</span>
+            </li>
+            <li class="step-wizard-item">
+                <span class="progress-count">3</span>
+                <span class="progress-label">보호자</span>
+            </li>
+            <li class="step-wizard-item">
+                <span class="progress-count">4</span>
+                <span class="progress-label">기타<br>항목</span>
+            </li>
+        </ul>
+    </div>
+    <h3 class="title">장기요양급여를 받고자하는<br> 수급자(신청인)의 기본정보를 입력해주세요</h3>
+    <div class="content"> 
+        <form action="">
+            <p class="inputWrap">
+                이름<br><input type="text" name="이름" size="10" placeholder="이름을 입력해 주세요 (최대 8자)" id="name" >
+            </p>
+            <p class="inputWrap">주민등록번호
+                <br>
+                <input type="text" size="7" maxlength="6" placeholder="생년월일 6자리" id="id_info1">
+                <span>-</span>
+                <input type="text" size="7" maxlength="7" placeholder="뒤 7자리" id="id_info2"> 
+            </p>
+            <p class="inputWrap">주민등록지<br>
+                <input type="text" id="address_kakao1" name="address" placeholder="주소를 검색하세요" />
+                <input type="text" id="address_kakao1Sub" name="address_detail1" placeholder="상세주소를 입력하세요"/>
+            </p>
+            <p class="inputWrap">실제거주지<br>
+                <input type="text" id="address_kakao2" name="address" placeholder="주소를 검색하세요" />
+                <input type="text" id="address_kakao2Sub" name="address_detail2" placeholder="상세주소를 입력하세요"/>
+            </p>
+            <p class="inputWrap">전화번호<br>
+                <input type="text" name="callNumber" id="callNumber" maxlength="11" placeholder="연락처를 '-' 없이 입력해 주세요">
+            </p>
+        
+            <div class="fileWrap">
+                <h3>파일첨부</h3>
+                <div class="fileBox">신분증<br>
+                    <div class="fileBoxInner">
+                        <input class="upload-name" id="idCard" value="사진 촬영을 해주세요" placeholder="사진 촬영을 해주세요" inputmode="none" onfocus="this.blur()">
+                        <label for="file1">촬영하기</label> 
+                        <input type="file" id="file1">
+                    </div>
+                    
+                </div>
+                <div class="fileBox">
+                    <div class="fileBoxLeft">
+                        의사소견서<br>
+                        <input class="upload-name" value="의사소견서 파일을 업로드 해주세요" placeholder="의사소견서 파일을 업로드 해주세요" inputmode="none" onfocus="this.blur()">
+                    </div>
+                    <div class="fileBoxRight">
+                        <div class="onlineBtn">온라인 신청</div>
+                        <label for="file2">첨부하기</label> 
+                        <input type="file" id="file2">
+                    </div>
+                </div>
+                <div class="fileBox">노인성 질병을 확인할 수 있는 진단서
+                    <div class="fileBoxInner">
+                        <input class="upload-name" value="의사소견서 파일을 업로드 해주세요" placeholder="의사소견서 파일을 업로드 해주세요" inputmode="none" onfocus="this.blur()">
+                        <label for="file3">첨부하기</label> 
+                        <input type="file" id="file3">
+                    </div>
+                </div>
+            </div>
+            <div class="check_wrap">
+                <input type="checkbox" id="check_btn">
+                <label for="check_btn"><span>개인 정보 제공 동의</span></label>
+                <p>대리 신청의 경우 반드시 등급을 신청하시는 어르신의 정보 제공 동의를 받으셔야 합니다.</p>
+            </div>
+            <div class="btn-bottom-wrap">
+                <button disabled="true" class="btn-bottom">
+                    <a href="#">다음</a>
+                </button>
+            </div> 
+        </form>
+    </div>
+    <div class="inputCheckWrap">
+        <div class="title">수급자 정보가 제대로 입력 되었는지 확인해 주세요</div>
+        <div class="content"> 
+            <div class="reCheckWrap">
+                이름<br>
+                <p class="text_name"></p>
+            </div>
+            <div class="reCheckWrap">
+                주민등록번호<br>
+                <p class="text_id1"></p>
+                <span>-</span>
+                <p class="text_id2"></p>
+            </div>
+            <div class="reCheckWrap">
+                주민등록지<br>
+                <p class="text_idHome1"></p>
+                <p class="text_idHome2"></p>
+            </div>
+            <div class="reCheckWrap">
+                실제거주지<br>
+                <p class="text_realHome1"></p>
+                <p class="text_realHome2"></p>
+            </div>
+            <div class="reCheckWrap">
+                전화번호<br>
+                <p class="text_callNumber"></p>
+            </div>
+            <div class="fileWrap">
+                <h3>파일첨부</h3>
+                <div class="reCheckWrap">신분증<br>
+                    <p class="text_idCard"></p>
+                </div>
+                <div class="reCheckWrap">의사소견서<br>
+                    <p class="text_doctor"></p>
+                </div>
+                <div class="reCheckWrap">노인성 질병을 확인할 수 있는 진단서<br>
+                    <p class="text_sheet"></p>
+                </div>
+            </div>
+
+            <span>개인 정보 제공 동의 완료</span>
+            <div class="btn-bottom-wrap2">
+                <button disabled="true" class="btn-bottom2">
+                    <a href="#">다시 입력</a>
+                </button>
+                <button disabled="true" class="btn-bottom2">
+                    <a href="./formpage4.html">다음</a>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- 카카오 지도 api 연동 -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+            window.onload = function(){
+                document.getElementById("address_kakao1").addEventListener("click", function(){ //주소입력칸을 클릭하면
+                    //카카오 지도 발생
+                    new daum.Postcode({
+                        oncomplete: function(data) { //선택시 입력값 세팅
+                            document.getElementById("address_kakao1").value = data.address; // 주소 넣기
+                            document.querySelector("input[name=address_detail1]").focus(); //상세입력 포커싱
+                        }
+                    }).open();
+                });
+
+                document.getElementById("address_kakao2").addEventListener("click", function(){ //주소입력칸을 클릭하면
+                    //카카오 지도 발생
+                    new daum.Postcode({
+                        oncomplete: function(data) { //선택시 입력값 세팅
+                            document.getElementById("address_kakao2").value = data.address; // 주소 넣기
+                            document.querySelector("input[name=address_detail2]").focus(); //상세입력 포커싱
+                        }
+                    }).open();
+                });
+            }
+    </script>
+    <script>
+        /*파일 업로드시 인풋 value, css style 변경*/
+        $("#file1").on('change',function(){
+            $(this).siblings('.upload-name').val("신분증 촬영 완료");
+            $(this).siblings('.upload-name').css('color','#000');
+        });
+        $("#file2").on('change',function(){
+            $(this).parent().siblings().children('.upload-name').val("파일 업로드 완료");
+            $(this).parent().siblings().children('.upload-name').css('color','#000');
+        });
+        $("#file3").on('change',function(){
+            $(this).siblings('.upload-name').val("파일 업로드 완료");
+            $(this).siblings('.upload-name').css('color','#000');
+        });
+
+        /*하단 다음 버튼 1개 클릭 시*/
+        $('.btn-bottom a').click(function(){
+            $('.inputCheckWrap').css('display', 'block');
+            $('.formP3>.step-wizard,.formP3>.title, .formP3>.content').css('display','none');
+            $('.text_idCard').text("신분증 촬영 완료");
+            $('.text_doctor, .text_sheet').text("파일 업로드 완료");
+        });
+
+        /*하단 이전 버튼 클릭 시*/
+        $('.btn-bottom-wrap2 .btn-bottom2:nth-child(1) a').click(function(){
+            $('.inputCheckWrap').css('display', 'none');
+            $('.formP3>.step-wizard,.formP3>.title, .formP3>.content').css('display','block');
+        });
+
+    </script>
+    <script>
+        /*인풋 value값 할당하는 코드*/
+        $(function(){
+            $('#name, #id_info1, #id_info2,#address_kakao1, #address_kakao1Sub,#address_kakao2, #address_kakao2Sub, #callNumber').keyup(function(){
+                $('.text_name').text($('#name').val());
+                $('.text_id1').text($('#id_info1').val());
+                $('.text_id2').text($('#id_info2').val());
+                $('.text_idHome1').text($('#address_kakao1').val());
+                $('.text_idHome2').text($('#address_kakao1Sub').val());
+                $('.text_realHome1').text($('#address_kakao2').val());
+                $('.text_realHome2').text($('#address_kakao2Sub').val());
+                $('.text_callNumber').text($('#callNumber').val());
+            });
+        });
+    </script>
+</body>
+</html>
