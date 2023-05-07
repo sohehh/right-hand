@@ -83,6 +83,7 @@ body{
     border-radius: 10px;
     color: #B7B7B7;
     font-weight: 700;
+    font-size: 16px;
     text-align: center;
     margin: 0 auto;
     border:none;
@@ -122,6 +123,7 @@ body{
     color: white;
     font-weight: 700;
     text-align: center;
+    font-size: 16px;
     border:none;
     box-sizing: border-box;
 }
